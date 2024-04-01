@@ -17,17 +17,19 @@ const Billiards: React.FC = () => {
       const minRadius = 20;
       const maxRadius = 40;
       const border = 60;
+      const colors = ["yellow", "green", "blue", "red", "purple", "cyan", "orange"];
 
       for (let i = 0; i < numBalls; i++) {
-        let x: number, y: number, radius: number;
+        let x: number, y: number, radius: number, color: string;
 
         do {
           radius = Math.floor(Math.random() * (maxRadius - minRadius + 1) + minRadius);
           x = Math.random() * (canvas.width - 2 * (border + 2 * radius)) + border + radius;
           y = Math.random() * (canvas.height - 2 * (border + 2 * radius)) + border + radius;
+          color = colors[Math.floor(Math.random() * colors.length)]; // Выбор случайного цвета из набора
         } while (balls.some((ball) => Math.sqrt((x - ball.x) ** 2 + (y - ball.y) ** 2) < radius + ball.radius));
 
-        balls.push(new Ball(x, y, radius, "#ffffff"));
+        balls.push(new Ball(x, y, radius, color));
       }
 
       drawer.drawTable();
