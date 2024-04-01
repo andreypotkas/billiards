@@ -1,36 +1,40 @@
-import { Ball } from "../utils/ball";
+import { Ball } from "./ball";
 
-class BilliardsDrawer {
-  private readonly ctx: CanvasRenderingContext2D;
-  private readonly canvasWidth: number;
-  private readonly canvasHeight: number;
+const BOARD_WIDTH = 60;
 
-  constructor(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number) {
-    this.ctx = ctx;
-    this.canvasWidth = canvasWidth;
-    this.canvasHeight = canvasHeight;
+export class BilliardsDrawer {
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d")!;
+    this.canvas.width = window.innerWidth * 0.9;
+    this.canvas.height = window.innerHeight * 0.8;
   }
 
   drawTable() {
+    const { width, height } = this.canvas;
     this.ctx.fillStyle = "#007f0e";
-    this.ctx.fillRect(50, 50, this.canvasWidth - 100, this.canvasHeight - 100);
+    this.ctx.fillRect(0, 0, width, height);
   }
 
   drawBalls(balls: Ball[]) {
     balls.forEach((ball) => {
-      ball.draw(this.ctx);
+      this.ctx.beginPath();
+      this.ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+      this.ctx.fillStyle = ball.color;
+      this.ctx.fill();
+      this.ctx.closePath();
     });
   }
 
-  drawBoard(boardWidth: number) {
-    const TABLE_PADDING = 50;
-
+  drawBoard() {
+    const { width, height } = this.canvas;
     this.ctx.fillStyle = "#964b00";
-    this.ctx.fillRect(TABLE_PADDING - boardWidth, TABLE_PADDING - boardWidth, boardWidth, this.canvasHeight - 2 * TABLE_PADDING + 2 * boardWidth);
-    this.ctx.fillRect(this.canvasWidth - TABLE_PADDING, TABLE_PADDING - boardWidth, boardWidth, this.canvasHeight - 2 * TABLE_PADDING + 2 * boardWidth);
-    this.ctx.fillRect(TABLE_PADDING - boardWidth, TABLE_PADDING - boardWidth, this.canvasWidth - 2 * TABLE_PADDING + 2 * boardWidth, boardWidth);
-    this.ctx.fillRect(TABLE_PADDING - boardWidth, this.canvasHeight - TABLE_PADDING, this.canvasWidth - 2 * TABLE_PADDING + 2 * boardWidth, boardWidth);
+    this.ctx.fillRect(0, 0, BOARD_WIDTH, height);
+    this.ctx.fillRect(width - 60, 0, BOARD_WIDTH, height);
+    this.ctx.fillRect(0, 0, width, BOARD_WIDTH);
+    this.ctx.fillRect(60, height - 60, width - 60, BOARD_WIDTH);
   }
 }
-
-export default BilliardsDrawer;
