@@ -3,6 +3,8 @@ export interface IBall {
   y: number;
   radius: number;
   color: string;
+  vx: number;
+  vy: number;
 }
 
 export class Ball implements IBall {
@@ -10,12 +12,16 @@ export class Ball implements IBall {
   y: number;
   radius: number;
   color: string;
+  vx: number;
+  vy: number;
 
   constructor(x: number, y: number, radius: number, color: string) {
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
+    this.vx = 0;
+    this.vy = 0;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
