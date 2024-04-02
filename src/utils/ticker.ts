@@ -8,20 +8,16 @@ const updateBallPosition = (ball: Ball) => {
 const checkCollisionWithRightLeftWalls = (ball: Ball, width: number) => {
   if (ball.x - ball.radius < 2) {
     ball.vx *= -1;
-    ball.vx *= 1;
   } else if (ball.x + ball.radius + 2 > width) {
     ball.vx *= -1;
-    ball.vx *= 1;
   }
 };
 
 const checkCollisionWithTopBottomWalls = (ball: Ball, height: number) => {
   if (ball.y - ball.radius < 0) {
     ball.vy *= -1;
-    ball.vy *= 1;
   } else if (ball.y + ball.radius > height) {
     ball.vy *= -1;
-    ball.vy *= 1;
   }
 };
 
@@ -39,9 +35,9 @@ const checkCollisionWithOtherBalls = (ball: Ball, index: number, balls: Ball[]) 
       const overlap = totalRadius - distance;
       const force = overlap;
 
-      const dampingFactor = 0.5;
-      ball.vx -= force * Math.cos(angle) * dampingFactor + ball.vx * 0.01;
-      ball.vy -= force * Math.sin(angle) * dampingFactor + ball.vy * 0.01;
+      const dampingFactor = 0.2;
+      ball.vx -= force * Math.cos(angle) * dampingFactor + ball.vx * 0.5;
+      ball.vy -= force * Math.sin(angle) * dampingFactor + ball.vy * 0.5;
       otherCircle.vx += force * Math.cos(angle) * dampingFactor;
       otherCircle.vy += force * Math.sin(angle) * dampingFactor;
     }

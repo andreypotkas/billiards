@@ -7,8 +7,8 @@ export class BilliardsDrawer {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d")!;
-    this.canvas.width = window.innerWidth * 0.9;
-    this.canvas.height = window.innerHeight * 0.8;
+    this.canvas.width = window.innerWidth * 0.5;
+    this.canvas.height = window.innerHeight * 0.5;
   }
 
   update(balls: Ball[]) {
